@@ -16,6 +16,9 @@
             <li>
               <router-link to="/addwebsite">Add your website</router-link>
             </li>
+            <li>
+              <router-link to="/login">Login</router-link>
+            </li>
           </ul>
         </div>
       </div>

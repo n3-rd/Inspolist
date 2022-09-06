@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "daisyui": "^2.24.0",
+    "firebase": "^9.9.4",
     "gsap": "^3.11.0",
+    "pinia": "^2.0.21",
     "theme-change": "^2.2.0",
     "vue": "^3.2.37",
     "vue-router": "4"

@@ -1,5 +1,7 @@
 const Home = () => import('./pages/Home.vue');
 const AddWebsite = () => import('./pages/AddWebsite.vue');
+const Login = () => import('./pages/Login.vue');
+const Register = () => import('./pages/Register.vue');
 
 const routes = [
     {
@@ -20,6 +22,26 @@ const routes = [
             title: 'Add Website',
             description: 'Add Website page',
             keywords: 'add, website, page',
+        },
+    },
+    {
+        path: '/login',
+        component: Login,
+        name: 'Login',
+        meta: {
+            title: 'Login',
+            description: 'Login page',
+            keywords: 'login, page',
+        },
+    },
+    {
+        path: '/register',
+        component: Register,
+        name: 'Register',
+        meta: {
+            title: 'Register',
+            description: 'Register page',
+            keywords: 'register, page',
         },
     },
 ]

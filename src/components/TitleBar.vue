@@ -81,6 +81,15 @@ import {auth} from '../firebaseConfig'
     },
     mounted() {
       themeChange(false)
+      setInterval(() => {
+        auth.onAuthStateChanged((user) => {
+        if (user) {
+          this.user = user
+        } else {
+          this.user = null
+        }
+      })
+      }, 1000)
     },
   }
 

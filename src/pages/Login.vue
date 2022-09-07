@@ -6,13 +6,13 @@
             <h1 class="text-4xl font-bold">Login to Inspolist</h1>
 
             <div class="py-4">
-                <input type="text" placeholder="Username" class="username input input-bordered input-md btn-wide" />
+                <input type="text" v-model="email" placeholder="email" class="email input input-bordered input-md btn-wide" />
             </div>
             <div class="py-4">
-                <input type="password" placeholder="Password" class="username input input-bordered input-md btn-wide" />
+                <input type="password" v-model="password" placeholder="Password" class="input input-bordered input-md btn-wide" />
             </div>
             <div class="py-4">
-                <button class="btn btn-primary btn-md btn-wide" @click="showUser">Login</button>
+                <button class="btn btn-primary btn-md btn-wide" @click="signInWithEmailAndPassword">Login</button>
             </div>
             <div class="py-4">
           <!-- sign in with Google button -->
@@ -38,12 +38,13 @@
 </template>
 
 <script>
-   import {app, auth, signInWithPopup, provider} from '../firebaseConfig'
+import { ErrorToast, SuccessToast } from '../components/Toasts';
+   import {app, auth, signInWithPopup, provider, signInWithEmailAndPassword} from '../firebaseConfig'
 
 export default{
   data(){
     return{
-      username: '',
+      email: '',
       password: '',
       user: null
     }
@@ -52,20 +53,43 @@ export default{
     googleSignIn(){
       signInWithPopup(auth, provider).then((result) => {
         this.user = result.user;
-        console.log(this.user);
         this.$router.push('/')
       }).catch((error) => {
-        console.log(error);
+        ErrorToast("Error signing in with Google")
       });
     },
-    showUser(){
-      // check if user is logged in
-      const user = auth.currentUser;
-      if(user){
-        console.log(user);
-      }
-      // console.log(this.user);
-    }
+    signInWithEmailAndPassword() {
+
+      signInWithEmailAndPassword(auth, this.email, this.password)
+        .then((userCredential) => {
+          this.user = userCredential.user;
+          SuccessToast("Sign in successfull");
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          if (error.code === 'auth/invalid-email') {
+            ErrorToast('Invalid email')
+          }
+          else if (error.code === 'auth/weak-password') {
+            ErrorToast('Weak password')
+          }
+          else if (error.code === 'auth/wrong-password') {
+            ErrorToast('Wrong password')
+          }
+          else if (error.code === 'auth/user-not-found') {
+            ErrorToast('User not found')
+          }
+          else if (error.code === 'auth/too-many-requests') {
+            ErrorToast('Too many requests')
+          }
+          else {
+            ErrorToast('Something went wrong')
+          }
+
+
+        });
+
+    },
   }
 }
 

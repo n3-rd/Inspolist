@@ -9,9 +9,10 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 })
+const pinia = createPinia()
 
 
 const app = createApp(App)
-app.use(router, createPinia())
+app.use(router, pinia)
 app.mount('#app')
 

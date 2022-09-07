@@ -2,6 +2,7 @@ const Home = () => import('./pages/Home.vue');
 const AddWebsite = () => import('./pages/AddWebsite.vue');
 const Login = () => import('./pages/Login.vue');
 const Register = () => import('./pages/Register.vue');
+const Profile = () => import('./pages/Profile.vue');
 
 const routes = [
     {
@@ -42,6 +43,16 @@ const routes = [
             title: 'Register',
             description: 'Register page',
             keywords: 'register, page',
+        },
+    },
+    {
+        path: '/profile',
+        component: Profile,
+        name: 'Profile',
+        meta: {
+            title: 'Profile',
+            description: 'Profile page',
+            keywords: 'profile, page',
         },
     },
 ]

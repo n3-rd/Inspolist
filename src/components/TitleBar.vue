@@ -13,12 +13,19 @@
             <li>
               <router-link to="/">Homepage</router-link>
             </li>
-            <li>
+            <li v-if="this.user">
               <router-link to="/addwebsite">Add your website</router-link>
             </li>
-            <li>
+            <li v-if="!this.user">
               <router-link to="/login">Login</router-link>
             </li>
+            <li v-if="this.user">
+              <router-link to="/profile">Profile</router-link>
+            </li>
+            <li v-if="this.user" @click="logout()">
+              <router-link to="#">Logout</router-link>
+            </li>
+
           </ul>
         </div>
       </div>
@@ -38,9 +45,15 @@
 
 <script>
   import { themeChange } from 'theme-change'
+import {auth} from '../firebaseConfig'
 
   export default {
     name: 'TitleBar',
+    data(){
+      return{
+        user: auth.currentUser
+      }
+    },
     methods: {
       toggleTheme() {
         themeChange()
@@ -50,10 +63,21 @@
         } else {
           localStorage.setItem('theme', 'dark')
         }
-
-
-
       },
+      logout(){
+        auth.signOut();
+        this.$router.push('/login')
+      }
+    },
+    updated() {
+      // check if user is logged in
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          this.user = user
+        } else {
+          this.user = null
+        }
+      })
     },
     mounted() {
       themeChange(false)

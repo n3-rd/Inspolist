@@ -3,10 +3,10 @@ import './style.css'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import routes from './routes'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes,
 })
 

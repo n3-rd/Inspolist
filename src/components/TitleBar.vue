@@ -46,6 +46,7 @@
 <script>
   import { themeChange } from 'theme-change'
 import {auth} from '../firebaseConfig'
+import { ErrorToast, SuccessToast } from './Toasts.js';
 
   export default {
     name: 'TitleBar',
@@ -66,6 +67,7 @@ import {auth} from '../firebaseConfig'
       },
       logout(){
         auth.signOut();
+        SuccessToast("Logged out successfully");
         this.$router.push('/login')
       }
     },

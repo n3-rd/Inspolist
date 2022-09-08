@@ -1,6 +1,6 @@
 <template>
     <div class="w-screen min-h-screen flex justify-center items-center flex-col">
-        <div class="card w-96 bg-base-100 border-4 border-[#00000084] py-10 flex justify-center items-center flex-col">
+        <div class="card w-96 bg-base-100 border-4 border-[#00000084] py-10 flex justify-center items-center flex-col" v-if="this.user">
         <h1 class="text-4xl font-black">Add Website</h1>
 
 
@@ -38,11 +38,11 @@
                 <label class="label">
                 <span class="label-text font-bold">Image (1303 × 673 px reccommended)</span>
             </label>
-            <input type="file" class="input input-bordered w-full font-bold" @change="onFileChange"  accept="image/*"/>
+            <input type="file" class="input input-bordered w-full font-bold" @change="onFileChange" accept="image/*"/>
             </div>
 
             <div class="mt-4 flex justify-center items-center">
-                <button class="btn btn-wide" @click="addWebsite">Add Website</button>
+                <button class="btn btn-wide" @click="addWebsite" :disabled="!this.formCompleted">Add Website</button>
             </div>
 
             <div class="mt-4 text-center text-lg font-semibold">
@@ -71,34 +71,44 @@
 </template>
 
 <script>
+import {auth} from '../firebaseConfig'
+import { uid } from 'uid';
+import { ErrorToast, SuccessToast } from '../components/Toasts';
+
+
 export default {
     name: "AddWebsite",
     data() {
         return {
+            formCompleted: false,
             websiteName: "",
             websiteURL: "",
             developer: "",
             tags: "",
             image: null,
+        user: auth.currentUser
         }
     },
     methods: {
         addWebsite() {
             if(this.validate()) {
-                fetch(`${import.meta.env.VITE_API_URL}/addWebsite?name=${this.websiteName}&image=${this.image}&url=${this.websiteURL}&tags=${this.tags.split(' ').join('')}&dev=${this.developer}`)
+                fetch(`${import.meta.env.VITE_API_URL}/addWebsite?name=${this.websiteName}&image=${this.image}&url=${this.websiteURL}&tags=${this.tags.split(' ').join('')}&dev=${this.developer}&developerId=${this.user.uid}&uid=${uid(16)}`)
             // check if the response is ok
             .then(response => {
                 if (response.ok) {
                    response.json().then(data => {
-                          this.showSuccessMessage();
+                          SuccessToast("Website added successfully!")
+                          this.$router.push('/')
                    })
                 } else {
                     throw new Error('Something went wrong ...');
+                    ErrorToast("Something went wrong!")
                 }
             })
             }
             else {
                 this.showErrorMessage();
+                ErrorToast("Please check the form and try again!")
             }
 
         },
@@ -106,10 +116,14 @@ export default {
             const file = e.target.files[0];
             // upload to imgbb
             const formData = new FormData();
+
             formData.append("image", file);
             fetch("https://api.imgbb.com/1/upload?key=7bd86449005294d3a0855998be71846a", {
                 method: "POST",
-                body: formData
+                body: formData,
+                // prevent caching
+                cache: "no-cache"
+
             })
             .then(res => res.json())
             .then(res => {
@@ -134,7 +148,27 @@ export default {
             setTimeout(() => {
                 document.querySelector(".success-notify").classList.add("hidden");
             }, 3000);
+        },
+        checkAllInputs() {
+            if (this.websiteName == "" || this.websiteURL == "" || this.developer == "" || this.tags == "" || this.image == null) {
+                this.formCompleted = false;
+            } else {
+                this.formCompleted = true;
+            }
         }
+    },
+    mounted() {
+        setInterval(() => {
+        auth.onAuthStateChanged((user) => {
+        if (user) {
+          this.user = user
+        } else {
+          this.user = null
+        }
+      })
+
+      this.checkAllInputs()
+      }, 1000)
     }
 
 }

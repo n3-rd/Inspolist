@@ -51,4 +51,8 @@ html {
   90%, 100% {
     transform: translateY(0px);
   }
+}
+button[disabled] {
+  cursor: not-allowed !important;
+  opacity: 0.5;
 }/*# sourceMappingURL=style.css.map */

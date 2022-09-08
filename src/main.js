@@ -9,6 +9,8 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 })
+
+// router that allows manual url navigation
 const pinia = createPinia()
 
 

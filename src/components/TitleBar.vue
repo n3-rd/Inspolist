@@ -19,6 +19,9 @@
             <li v-if="!this.user">
               <router-link to="/login">Login</router-link>
             </li>
+            <li v-if="!this.user">
+              <router-link to="/register">Register</router-link>
+            </li>
             <li v-if="this.user">
               <router-link to="/profile">Profile</router-link>
             </li>

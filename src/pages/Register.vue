@@ -70,7 +70,8 @@ export default {
         .then((userCredential) => {
           // set user display name
     updateProfile(auth.currentUser, {
-      displayName: this.displayName
+      displayName: this.displayName,
+      photoURL: `https://ui-avatars.com/api/?name=n3rd${this.displayName}&background=random`
     })
           this.user = userCredential.user;
           SuccessToast("Sign up successfull");
@@ -79,7 +80,6 @@ export default {
         .catch((error) => {
           if (error.code === 'auth/email-already-in-use') {
             ErrorToast('Email already in use')
-
           }
           else if (error.code === 'auth/invalid-email') {
             ErrorToast('Invalid email')

@@ -16,6 +16,9 @@
           <input type="text" v-model="email" placeholder="email" class="email input input-bordered input-md btn-wide" />
         </div>
         <div class="py-4">
+          <input type="text" v-model="displayName" placeholder="Display Name" class="input input-bordered input-md btn-wide" />
+        </div>
+        <div class="py-4">
           <input type="password" v-model="password" placeholder="Password"
             class="input input-bordered input-md btn-wide" />
         </div>
@@ -40,13 +43,14 @@
 </template>
 
 <script>
-import { app, auth, signInWithPopup, provider, createUserWithEmailAndPassword } from '../firebaseConfig'
+import { app, auth, signInWithPopup, provider, createUserWithEmailAndPassword, updateProfile } from '../firebaseConfig'
 import { ErrorToast, SuccessToast } from '../components/Toasts.js'
 
 export default {
   data() {
     return {
       email: '',
+      displayName:'',
       password: '',
       user: null
     }
@@ -64,6 +68,10 @@ export default {
     createUserWithEmailAndPassword() {
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
+          // set user display name
+    updateProfile(auth.currentUser, {
+      displayName: this.displayName
+    })
           this.user = userCredential.user;
           SuccessToast("Sign up successfull");
           this.$router.push('/')
@@ -90,6 +98,7 @@ export default {
           }
           else {
             ErrorToast('Something went wrong')
+
           }
         });
 
@@ -101,6 +110,9 @@ export default {
       }
       else if (this.password === '') {
         ErrorToast('Password cannot be empty')
+      }
+      else if (this.displayName === '') {
+        ErrorToast('Display name cannot be empty')
       }
       else if (!validRegex.test(this.email)) {
         ErrorToast('Invalid email')

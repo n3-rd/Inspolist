@@ -21,13 +21,6 @@
 
             <div class="mt-4">
                 <label class="label">
-                <span class="label-text font-bold">Developer</span>
-            </label>
-            <input type="text" placeholder="Developer" class="input input-bordered w-full font-bold" v-model="developer"/>
-            </div>
-
-            <div class="mt-4">
-                <label class="label">
                 <span class="label-text font-bold">Tags (seperate with commas)</span>
             </label>
             <input type="text" placeholder="Tags" class="input input-bordered w-full font-bold" v-model="tags"/>
@@ -83,7 +76,7 @@ export default {
             formCompleted: false,
             websiteName: "",
             websiteURL: "",
-            developer: "",
+            developer: auth.currentUser.displayName,
             tags: "",
             image: null,
         user: auth.currentUser

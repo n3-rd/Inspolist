@@ -13,7 +13,7 @@
         <h1 class="text-4xl font-bold">Register new account</h1>
 
         <div class="py-4">
-          <input type="text" v-model="email" placeholder="email" class="email input input-bordered input-md btn-wide" />
+          <input type="email" v-model="email" placeholder="email" class="email input input-bordered input-md btn-wide" />
         </div>
         <div class="py-4">
           <input type="text" v-model="displayName" placeholder="Display Name" class="input input-bordered input-md btn-wide" />

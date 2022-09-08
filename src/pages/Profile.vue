@@ -139,6 +139,9 @@ const listenToHover = () => {
         .then(res => res.json())
         .then(data => {
           this.userWebsites = data.documents
+          setTimeout(() => {
+                        listenToHover();
+                    }, 1000);
         })
       },
       openExternalLink(url) {
@@ -149,8 +152,6 @@ const listenToHover = () => {
           if(this.user){
             this.getUserWebsites()
           }
-          listenToHover()
-
         }
     }
 </script>

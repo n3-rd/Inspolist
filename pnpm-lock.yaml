@@ -8,6 +8,7 @@ specifiers:
   gsap: ^3.11.0
   pinia: ^2.0.21
   postcss: ^8.4.16
+  sweetalert: ^2.1.2
   tailwindcss: ^3.1.8
   theme-change: ^2.2.0
   toastify-js: ^1.12.0
@@ -21,6 +22,7 @@ dependencies:
   firebase: 9.9.4
   gsap: 3.11.1
   pinia: 2.0.21_vue@3.2.38
+  sweetalert: 2.1.2
   theme-change: 2.2.0
   toastify-js: 1.12.0
   uid: 2.0.0
@@ -931,6 +933,10 @@ packages:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
     dev: false
 
+  /es6-object-assign/1.1.0:
+    resolution: {integrity: sha512-MEl9uirslVwqQU369iHNWZXsI8yaZYGg/D65aOgZkeyFJwHYSxilf7rQzXKI7DdDuBPrBXbfk3sl9hJhmd5AUw==}
+    dev: false
+
   /esbuild-android-64/0.15.7:
     resolution: {integrity: sha512-p7rCvdsldhxQr3YHxptf1Jcd86dlhvc3EQmQJaZzzuAxefO9PvcI0GLOa5nCWem1AJ8iMRu9w0r5TG8pHmbi9w==}
     engines: {node: '>=12'}
@@ -1531,6 +1537,10 @@ packages:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
     dev: false
 
+  /promise-polyfill/6.1.0:
+    resolution: {integrity: sha512-g0LWaH0gFsxovsU7R5LrrhHhWAWiHRnh1GPrhXnPgYsDkIqjRYUYSZEsej/wtleDrz5xVSIDbeKfidztp2XHFQ==}
+    dev: false
+
   /protobufjs/6.11.3:
     resolution: {integrity: sha512-xL96WDdCZYdU7Slin569tFX712BxsxslWwAfAhCYjQKGTq7dAU91Lomy6nLLhh/dyGhk/YH4TwTSRxTzhuHyZg==}
     hasBin: true
@@ -1703,6 +1713,13 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  /sweetalert/2.1.2:
+    resolution: {integrity: sha512-iWx7X4anRBNDa/a+AdTmvAzQtkN1+s4j/JJRWlHpYE8Qimkohs8/XnFcWeYHH2lMA8LRCa5tj2d244If3S/hzA==}
+    dependencies:
+      es6-object-assign: 1.1.0
+      promise-polyfill: 6.1.0
+    dev: false
 
   /tailwindcss/3.1.8_postcss@8.4.16:
     resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}

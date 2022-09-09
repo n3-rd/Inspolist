@@ -1,5 +1,9 @@
 <template>
+
     <div class="w-screen h-screen flex justify-center items-center">
+
+
+
         <div class="card min-w-96 py-12 bg-base-100 shadow-xl flex justify-center items-center" v-if="user">
             <div class="avatar">
   <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -19,7 +23,9 @@
     <button class="btn btn-primary btn-md btn-wide" @click="logout">Logout</button>
 </div>
 
-<div class="h2 text-4xl py-4 font-bold">Websites</div>
+<div v-if="userWebsites">
+
+<div class="h2 text-4xl py-4 font-bold text-center">Websites</div>
 
 <div class="websites py-2 w-screen">
   <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mx-4 pt-6">
@@ -49,6 +55,17 @@
                             open
                         </button>
 
+                        <button v-if="this.user" @click="deleteWebsite(userWebsite.uid)" class="
+                btn
+                border-white
+                text-white
+                hover:bg-white hover:text-black
+                btn-outline
+                opacity-100
+              ">
+                            delete
+                        </button>
+
                         <!-- card name -->
                         <div class="
                 item__name
@@ -71,6 +88,7 @@
                 </div>
             </div>
         </div>
+</div>
 </div>
 
         </div>
@@ -107,6 +125,8 @@
 <script>
 import {auth} from '../firebaseConfig'
 import {ErrorToast, SuccessToast} from '../components/Toasts.js'
+import swal from 'sweetalert';
+
 const listenToHover = () => {
     const items = document.querySelectorAll(".grid-item");
     items.forEach((item) => {
@@ -125,7 +145,7 @@ const listenToHover = () => {
         data(){
             return{
                 user: auth.currentUser,
-                userWebsites: []
+                userWebsites: null
             }
         },
         methods:{
@@ -146,12 +166,34 @@ const listenToHover = () => {
       },
       openExternalLink(url) {
             window.open(url, "_blank");
-        }
         },
+       deleteWebsite(id){
+    fetch(`${import.meta.env.VITE_API_URL}/deleteWebsite?websiteId=${id}`)
+    .then(res => {
+      if(res.status === 200){
+        SuccessToast("Website deleted successfully");
+        this.userWebsites.splice(this.userWebsites.findIndex(website => website.uid === id), 1)
+        this.getUserWebsites()
+
+      }
+    })
+        // remove item with id from array
+
+       }
+      },
         mounted(){
           if(this.user){
             this.getUserWebsites()
           }
+          setInterval(() => {
+        auth.onAuthStateChanged((user) => {
+        if (user) {
+          this.user = user
+        } else {
+          this.user = null
+        }
+      })
+      }, 1000)
         }
     }
 </script>

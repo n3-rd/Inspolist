@@ -23,8 +23,34 @@ module.exports = {
 
 "error": "#F87272",
         },
+        purple: {
+
+ "primary": "#FFFFFB",
+
+ "secondary": "#3A7666",
+
+ "accent": "#be123c",
+
+ "neutral": "#000000",
+
+ "base-100": "#3124C7",
+
+ "info": "#3ABFF8",
+
+ "success": "#36D399",
+
+ "warning": "#FBBD23",
+
+ "error": "#F87272",
+        },
       },
-      "black"
+      "light",
+      "black",
+      "dark",
+      "cyberpunk",
+      "wireframe",
+      "coffee",
+      "valentine",
     ],
   },
   content: [

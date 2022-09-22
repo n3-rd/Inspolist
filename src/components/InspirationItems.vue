@@ -12,7 +12,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mx-4 pt-6" v-else>
-            <div class="grid-item mb-12 h-[16rem] w-full relative bg-zinc-100" v-for="inspirationItem in inspirationItems"
+            <div class="grid-item mb-12 h-[20rem] w-full relative bg-zinc-100" v-for="inspirationItem in inspirationItems"
                 :key="inspirationItem.name">
                 <div class="item__inner w-full h-full bg-center bg-cover" :style="{
                     'background-image': 'url(' + inspirationItem.image + ')',

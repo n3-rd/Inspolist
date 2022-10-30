@@ -1,5 +1,8 @@
 <template>
     <div class="w-screen min-h-screen flex justify-center items-center flex-col">
+
+        <div class="absolute bottom-0 right-0 text-2xl bg-black p-5 text-white" v-if="addingWebsite">Adding website...</div>
+
         <div class="card w-96 bg-base-100 border-4 border-[#00000084] py-10 flex justify-center items-center flex-col" v-if="this.user">
         <h1 class="text-4xl font-black">Add Website</h1>
 
@@ -79,21 +82,26 @@ export default {
             developer: auth.currentUser.displayName,
             tags: "",
             image: null,
-        user: auth.currentUser
+        user: auth.currentUser,
+        addingWebsite: false,
         }
     },
     methods: {
         addWebsite() {
+            this.addingWebsite = true
+
             if(this.validate()) {
                 fetch(`${import.meta.env.VITE_API_URL}/addWebsite?name=${this.websiteName}&image=${this.image}&url=${this.websiteURL}&tags=${this.tags.split(' ').join('')}&dev=${this.developer}&developerId=${this.user.uid}&uid=${uid(16)}`)
             // check if the response is ok
             .then(response => {
                 if (response.ok) {
+                    this.addingWebsite = false
                    response.json().then(data => {
                           SuccessToast("Website added successfully!")
                           this.$router.push('/')
                    })
                 } else {
+                    this.addingWebsite = false
                     throw new Error('Something went wrong ...');
                     ErrorToast("Something went wrong!")
                 }

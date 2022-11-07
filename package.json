@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "daisyui": "^2.28.0",
-    "firebase": "^9.9.4",
+    "firebase": "^9.13.0",
     "gsap": "^3.11.0",
     "sweetalert": "^2.1.2",
     "theme-change": "^2.2.0",

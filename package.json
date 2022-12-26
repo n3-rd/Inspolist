@@ -11,7 +11,7 @@
   "dependencies": {
     "daisyui": "^2.38.1",
     "firebase": "^9.13.0",
-    "gsap": "^3.11.0",
+    "gsap": "^3.11.4",
     "sweetalert": "^2.1.2",
     "theme-change": "^2.2.0",
     "toastify-js": "^1.12.0",
